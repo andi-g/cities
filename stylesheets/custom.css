@@ -1,0 +1,132 @@
+
+.body {
+	background-color:#777;
+}
+
+.background {
+  fill: none;
+  pointer-events: all;
+}
+ 
+#states {
+  fill: #aaa;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+ 
+#states .active {
+  fill: steelblue;
+}
+
+.city {
+  fill: #f00;
+  fill-opacity: .6;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.oldcity {
+  fill: #333;
+  fill-opacity: .6;
+  stroke: #bbb;
+  stroke-width: 1.5px;
+}
+
+
+#yeardiv {
+	fill-opacity:.6;
+	fill: #aaa;
+}
+
+.sliderbar {
+	fill: #000;
+	fill-opacity: .5;
+}
+
+
+.sliderpointrect {
+	fill: #000;
+	fill-opacity: .5;
+}
+
+.timelineyear {
+	fill: #000;
+}
+
+.inactive {
+	background-color: #bbb;
+}
+
+.playbutton {
+	fill:#000;
+	stroke: #000;
+	stroke-width:1;
+}
+.playbuttonpassive {
+	fill:#aaa;
+	stroke: #aaa;
+	stroke-width:1;
+}
+.pausebuttonbackground {
+	fill:#fff;
+	stroke: #fff;
+	stroke-width:1;
+}
+.pausebuttonforeground {
+	fill:none;
+	stroke: #000;
+	stroke-width:2;
+}
+
+.pausebuttonforegroundpassive {
+	fill:none;
+	stroke: #888;
+	stroke-width:2;
+}
+
+#cityinfotable {
+	width: 380px;
+}
+
+.col1 {
+	width: 70px;
+	text-align:right;
+}
+
+.timelinetable {
+	width: 560px;
+	max-width: 560px;
+}
+
+.timelinecell {
+	margin-left:20px;
+}
+
+.by {
+	padding-top:11px;
+}
+
+.row {
+	max-width:960px;
+    width:960px;
+	margin-left:-20px;
+}
+
+.span4{
+	width: 300px;
+}
+
+.span8{
+	width: 600px;
+	margin-left: 20px;
+}
+
+.span9 {
+	width: 700px;
+}
+
+.span3 {
+	width: 220px;
+}
+ 
+
