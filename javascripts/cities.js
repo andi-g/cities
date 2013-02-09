@@ -20,16 +20,16 @@ var mxmax = 0, mxmin = width;
 //
 // time line slider dimensions
 var sliderwidth = 460, 
-	sliderheight = 10,
-	sliderpos = 0,
-	sliderareaheight = 52,
-	sliderareawidth = 560;
+    sliderheight = 10,
+    sliderpos = 0,
+    sliderareaheight = 52,
+    sliderareawidth = 560;
 
 var sliderxoffset = 20,
-	slideryoffset = 7;
+    slideryoffset = 7;
 
 var sliderpointwidth = 20,
-	sliderpointheight = 20;
+    sliderpointheight = 20;
 
 //
 // city info
@@ -42,16 +42,16 @@ var popdiv = d3.select("#popdiv");
 var drag = d3.behavior.drag()
     .origin(Object)
     .on("drag", dragmove)
-	.on("dragend", updatesliderpoint);
+    .on("dragend", updatesliderpoint);
 
 var slider = d3.select("#slider").append("svg")
-	.attr("width", sliderareawidth)
-	.attr("height", sliderareaheight);
+    .attr("width", sliderareawidth)
+    .attr("height", sliderareaheight);
 
 slider.append( "rect" )
-	.attr( "class", "background" )
-	.attr("width", sliderwidth)
-	.attr("height", sliderareaheight);
+    .attr( "class", "background" )
+    .attr("width", sliderwidth)
+    .attr("height", sliderareaheight);
 
 var pline = d3.svg.line()
     .x(function(d) { return d.x; })
@@ -59,53 +59,53 @@ var pline = d3.svg.line()
     .interpolate("linear");
 
 var plinepoints = [ { "x" :  0, "y" :  0 }, 
-   					{ "x" :  0, "y" : 16 },
-					{ "x" : 10, "y" :  8 }	];
+                    { "x" :  0, "y" : 16 },
+                    { "x" : 10, "y" :  8 }  ];
 
 var play = slider.append( "path" )
-	.attr("d", pline(plinepoints) + " Z")
-	.attr("class", "playbuttonpassive")
-	.attr("transform", "translate(" + ( sliderareawidth - 45 ) + ", 0)" )
-	.on( "click", clickPlay );
+    .attr("d", pline(plinepoints) + " Z")
+    .attr("class", "playbuttonpassive")
+    .attr("transform", "translate(" + ( sliderareawidth - 45 ) + ", 0)" )
+    .on( "click", clickPlay );
 
 var pauselinepointsA = [ { "x" :  2, "y" :  0 },
-						 { "x" :  2, "y" : 16 } ];
+                         { "x" :  2, "y" : 16 } ];
 
 var pauselinepointsB = [ { "x" :  8, "y" : 0 },
-						 { "x" :  8, "y" : 16 }];
+                         { "x" :  8, "y" : 16 }];
 
 slider.append( "rect" )
-	.attr( "class", "pausebuttonbackground" )
-	.attr( "width", 10 )
-	.attr( "height", 16 )
-	.attr( "transform", "translate(" + ( sliderareawidth - 29 ) + ", 0)")
-	.on( "click", clickPause );
+    .attr( "class", "pausebuttonbackground" )
+    .attr( "width", 10 )
+    .attr( "height", 16 )
+    .attr( "transform", "translate(" + ( sliderareawidth - 29 ) + ", 0)")
+    .on( "click", clickPause );
 
 var pauseA = slider.append( "path" )
-	.attr("d", pline(pauselinepointsA) )
-	.attr("class", "pausebuttonforeground")
-	.attr("transform", "translate(" + ( sliderareawidth - 29 ) + ", 0)" )
+    .attr("d", pline(pauselinepointsA) )
+    .attr("class", "pausebuttonforeground")
+    .attr("transform", "translate(" + ( sliderareawidth - 29 ) + ", 0)" )
 
 var pauseB = slider.append( "path" )
-	.attr("d", pline(pauselinepointsB) )
-	.attr("class", "pausebuttonforeground")
-	.attr("transform", "translate(" + ( sliderareawidth - 29 ) + ", 0)" )
+    .attr("d", pline(pauselinepointsB) )
+    .attr("class", "pausebuttonforeground")
+    .attr("transform", "translate(" + ( sliderareawidth - 29 ) + ", 0)" )
 
 slider.append( "rect" )
-	.attr( "class", "sliderbar" )
-	.attr( "width", sliderwidth )
-	.attr( "height", 5 )
-	.attr( "x", sliderxoffset )
-	.attr( "y", slideryoffset );
+    .attr( "class", "sliderbar" )
+    .attr( "width", sliderwidth )
+    .attr( "height", 5 )
+    .attr( "x", sliderxoffset )
+    .attr( "y", slideryoffset );
 
 var sliderpoint = slider.append("rect")
-	.attr( "class", "sliderpointrect" )
-	.attr( "width", sliderpointwidth )
-	.attr( "height", sliderpointheight )
-	.attr( "y", "-2")
-	.attr( "x", "0" )
-	.attr( "transform", "translate( " + sliderxoffset +  ", 8)")
-	.call(drag);
+    .attr( "class", "sliderpointrect" )
+    .attr( "width", sliderpointwidth )
+    .attr( "height", sliderpointheight )
+    .attr( "y", "-2")
+    .attr( "x", "0" )
+    .attr( "transform", "translate( " + sliderxoffset +  ", 8)")
+    .call(drag);
 
 //
 // the map projection
@@ -130,11 +130,11 @@ svg.append("rect")
  
 var g = svg.append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-  .append("g")
+    .append("g")
     .attr("id", "states");
  
 // 
-// house keeping for the animations	
+// house keeping for the animations 
 var paused = false;
 var allyears = new Array();
 var citydata = new Array();
@@ -163,50 +163,50 @@ queue()
 //deferred loading
 function ready(error, countries, citysizes)
 {
-  g.selectAll("path")
-      .data(countries.features)
-    .enter().append("path")
-      .attr("d", path);
+    g.selectAll("path")
+        .data(countries.features)
+        .enter().append("path")
+        .attr("d", path);
 
-  	var citydict = {};
-	var cnt = 0;
-	citysizes.forEach(function(d) { 
-	   var year = parseInt( d.year );
-	   if( year < minYear ){
-	   		minYear = year;
-	   }
-	   if( year > maxYear ){
-	   	 maxYear = year;
-	   }
-	   var id = cnt;
-	   if( citydict[ d.city ] !== undefined ){
-	   		id = citydict[ d.city ];
-	   } else {
-	   		citydict[ d.city ] = id;
-	   } 
-	   citiesByYear[year] = { "name" : d.city, "coordinates" : projection([ parseFloat(d.lon), parseFloat(d.lat) ]), "size" : parseInt(d.size), "year" : year, "id" : citydict[ d.city ] };
-	   allyears.push(year);
-	   cnt++;
+    var citydict = {};
+    var cnt = 0;
+    citysizes.forEach(function(d) { 
+        var year = parseInt( d.year );
+        if( year < minYear ){
+            minYear = year;
+        }
+        if( year > maxYear ){
+            maxYear = year;
+        }
+        var id = cnt;
+        if( citydict[ d.city ] !== undefined ){
+            id = citydict[ d.city ];
+        } else {
+            citydict[ d.city ] = id;
+        } 
+        citiesByYear[year] = { "name" : d.city, "coordinates" : projection([ parseFloat(d.lon), parseFloat(d.lat) ]), "size" : parseInt(d.size), "year" : year, "id" : citydict[ d.city ] };
+        allyears.push(year);
+        cnt++;
    });
-	numyears = allyears.length;
-	lastYear = allyears[ 0 ];
+    numyears = allyears.length;
+    lastYear = allyears[ 0 ];
     currentYearIndex = 0;
 
-	var timelineyears = new Array();
-	var numyearstoshow = 10;
-	timelineyears.push( minYear );
-	var yearinterval = (maxYear - minYear) / ( numyearstoshow );
-	for ( var i = 1; i < numyearstoshow; i++ ){
-		timelineyears.push( Math.floor( minYear + yearinterval * i ) );
-	}
-	timelineyears.push( maxYear );
+    var timelineyears = new Array();
+    var numyearstoshow = 10;
+    timelineyears.push( minYear );
+    var yearinterval = (maxYear - minYear) / ( numyearstoshow );
+    for ( var i = 1; i < numyearstoshow; i++ ){
+        timelineyears.push( Math.floor( minYear + yearinterval * i ) );
+    }
+    timelineyears.push( maxYear );
 
-	slider.selectAll( "text" ).data( timelineyears ).enter().append("text")
-		.attr( "class", "timelineyear" )
-		.attr("text-anchor", "middle")
-		.text( function( d ) { return d; } )
-		.attr("x", function( d ) { return  sliderxoffset + ( sliderwidth ) * ( d - minYear ) / ( maxYear - minYear );  })
-		.attr("y", "38");
+    slider.selectAll( "text" ).data( timelineyears ).enter().append("text")
+        .attr( "class", "timelineyear" )
+        .attr("text-anchor", "middle")
+        .text( function( d ) { return d; } )
+        .attr("x", function( d ) { return  sliderxoffset + ( sliderwidth ) * ( d - minYear ) / ( maxYear - minYear );  })
+        .attr("y", "38");
 
 
 }
@@ -214,174 +214,175 @@ function ready(error, countries, citysizes)
 //
 // update the play/pause button next to the timeline slider
 function setButtonsToPlay( isplaying ){
-	if( isplaying ) {
-		play.attr( "class", "playbuttonpassive" );
-		pauseA.attr( "class", "pausebuttonforeground" );
-		pauseB.attr( "class", "pausebuttonforeground" );
-	} else {
-		play.attr( "class", "playbutton" );
-		pauseA.attr( "class", "pausebuttonforegroundpassive" );
-		pauseB.attr( "class", "pausebuttonforegroundpassive" );
-	}
+    if( isplaying ) {
+        play.attr( "class", "playbuttonpassive" );
+        pauseA.attr( "class", "pausebuttonforeground" );
+        pauseB.attr( "class", "pausebuttonforeground" );
+    } else {
+        play.attr( "class", "playbutton" );
+        pauseA.attr( "class", "pausebuttonforegroundpassive" );
+        pauseB.attr( "class", "pausebuttonforegroundpassive" );
+    }
 }
 
 //
 // the play button has been clicked
 function clickPlay(){
-	setPaused( false );
+    setPaused( false );
 }
 
 //
 // the pause button has been clicked
 function clickPause(){
-	setPaused( true );
+    setPaused( true );
 }
 
 //
 // set the animation on pause
 function setPaused( pause ){
-	if( pause != paused ){
-		togglePaused();
-	}
+    if( pause != paused ){
+        togglePaused();
+    }
 }
 
 //
 // an action caused a play/pause event
 function togglePaused(){
-	paused = paused ? false : true;
-	if (!paused) {
-		setButtonsToPlay( true );
-		if( currentYearIndex >= numyears - 1 ){
-			currentYearIndex = -1;
-			lastYear = minYear;
-			showCitiesUntil( minYear );
+    paused = paused ? false : true;
+    if (!paused) {
+        setButtonsToPlay( true );
+        if( currentYearIndex >= numyears - 1 ){
+            currentYearIndex = -1;
+            lastYear = minYear;
+            showCitiesUntil( minYear );
 
-		}
-	} else {
-		setButtonsToPlay( false );
-	}
+        }
+    } else {
+        setButtonsToPlay( false );
+    }
 }
 
 //
 // show city info in the upper left table
 function fillCityInfo( city ){
-	namediv.text( city.name );
-	popdiv.text( city.size );
-	timediv.text( city.year );
+    namediv.text( city.name );
+    popdiv.text( city.size );
+    timediv.text( city.year );
 }
 
 //
 // perform all the action needed to stop the animation and show the city info
 function displayCityInfo( city ){
-	setPaused( true );
-	fillCityInfo( city );
-	updatesliderpos( city.year, minYear, maxYear );
+    setPaused( true );
+    fillCityInfo( city );
+    updatesliderpos( city.year, minYear, maxYear );
 }
 
 //
 // somebody clicked on a city circle
 function circleClick( city ){
-	d3.selectAll( "circle" ).attr( "class", "oldcity" );
-	d3.select(this).attr( "class", "city" );
-	displayCityInfo( city );
+    d3.selectAll( "circle" ).attr( "class", "oldcity" );
+    d3.select(this).attr( "class", "city" );
+    displayCityInfo( city );
 }
 
 //
 // the animation loop
 setInterval(function() {
- 	if ( !paused ) {
-		if( currentYearIndex < numyears ) {  
-		   	next( );
-		   	updatesliderpos( lastYear < maxYear ? lastYear : maxYear, minYear, maxYear );
-		   	redraw();
-	 	} else {
-			zoomOut();
-			setPaused( true );
-	 	}
-  	}
+    if ( !paused ) {
+        if( currentYearIndex < numyears ) {  
+            next( );
+            updatesliderpos( lastYear < maxYear ? lastYear : maxYear, minYear, maxYear );
+            redraw();
+        } else {
+            zoomOut();
+            setPaused( true );
+        }
+    }
  }, 2000);
 
 //
 // put cities on the SVG map
 function addCitiesToMap(){
-	//
-	// this is a weird construction
-	// to make sure the last city is colored red
-	// after dragging around the time slider
-	var len = citytimeline.length;
-	if( len > 1 ){
-		var city = citytimeline[ len - 1 ];
-		citytimeline.splice( len - 1, 1);
-		redraw();
-		citytimeline.push( city );
-	}
-	redraw();
+    //
+    // this is a weird construction
+    // to make sure the last city is colored red
+    // after dragging around the time slider
+    var len = citytimeline.length;
+    if( len > 1 ){
+        var city = citytimeline[ len - 1 ];
+        citytimeline.splice( len - 1, 1);
+        redraw();
+        citytimeline.push( city );
+    }
+    redraw();
 }
 
 //
 // show all cities that were the biggest before a given year
 function showCitiesUntil( year ){
-	lastYear = Math.floor( year );
-	mxmin = 5000;
-	mxmax = -5000;
-	citytimeline = new Array();
-	var circle = g.selectAll("circle")
-		   .data(citytimeline);
-	circle.exit().remove();
+    lastYear = Math.floor( year );
+    mxmin = 5000;
+    mxmax = -5000;
+    citytimeline = new Array();
+    var circle = g.selectAll("circle")
+           .data(citytimeline);
+    circle.exit().remove();
 
-	for ( var i = 0; ( i < numyears ) && ( allyears[ i ] <= year ); i++ ){
-		var city = citiesByYear[ allyears[ i ] ];
-		citytimeline.push( city );
-		if( city.coordinates[0] < mxmin ){
-			mxmin = city.coordinates[0];
-		}
-		if( city.coordinates[0] > mxmax ){
-			mxmax = city.coordinates[0];
-		}
-		currentYearIndex = Math.min( i + 1, numyears - 1 );
-	}
-	if( citytimeline.length > 0 ){
-		fillCityInfo( citytimeline[ citytimeline.length - 1 ] );
-	}
-	addCitiesToMap();
-	if ( year >= maxYear - 3 ){
-		zoomOut();
-	}
+    for ( var i = 0; ( i < numyears ) && ( allyears[ i ] <= year ); i++ ){
+        var city = citiesByYear[ allyears[ i ] ];
+        citytimeline.push( city );
+        if( city.coordinates[0] < mxmin ){
+            mxmin = city.coordinates[0];
+        }
+        if( city.coordinates[0] > mxmax ){
+            mxmax = city.coordinates[0];
+        }
+        currentYearIndex = Math.min( i + 1, numyears - 1 );
+    }
+
+    if( citytimeline.length > 0 ){
+        fillCityInfo( citytimeline[ citytimeline.length - 1 ] );
+    }
+    addCitiesToMap();
+    if ( year >= maxYear - 3 ){
+        zoomOut();
+    }
 }
 
 //
 // put the next city on the map
 function next( ){
-	lastYear = allyears[ currentYearIndex ];
-	if( lastYear !== undefined ){
-		city = citiesByYear[ lastYear ];
-		if( citiesbyid[ city.id ] !== undefined ){
-			var pos =  citiesbyid[ city.id ];
-			citytimeline.slice( pos, 1);
-			for( var i = pos; i < citytimeline.length; i++ ){
-				citiesbyid[ citytimeline[ i ].id ] = i;
-			} 	
-		}
-		citytimeline.push( city );
-		citiesbyid[ city.id ] = citytimeline.length - 1;
-		if( city.coordinates[0] < mxmin ){
-			mxmin = city.coordinates[0];
-		}
-		if( city.coordinates[0] > mxmax ){
-			mxmax = city.coordinates[0];
-		}
-		fillCityInfo( city );
-	}
-	currentYearIndex++;
+    lastYear = allyears[ currentYearIndex ];
+    if( lastYear !== undefined ){
+        city = citiesByYear[ lastYear ];
+        if( citiesbyid[ city.id ] !== undefined ){
+            var pos =  citiesbyid[ city.id ];
+            citytimeline.slice( pos, 1);
+            for( var i = pos; i < citytimeline.length; i++ ){
+                citiesbyid[ citytimeline[ i ].id ] = i;
+            }   
+        }
+        citytimeline.push( city );
+        citiesbyid[ city.id ] = citytimeline.length - 1;
+        if( city.coordinates[0] < mxmin ){
+            mxmin = city.coordinates[0];
+        }
+        if( city.coordinates[0] > mxmax ){
+            mxmax = city.coordinates[0];
+        }
+        fillCityInfo( city );
+    }
+    currentYearIndex++;
 }
 
 //
 // set the timeline slider to a given year 
 function updatesliderpos( year, minyear, maxyear ){
-	var tpos = ( sliderwidth - sliderpointwidth ) * ( year - minyear ) / ( maxyear - minyear );
-	sliderpoint.transition()
-			.duration(1000)
-			.attr("x", Math.floor(tpos) );
+    var tpos = ( sliderwidth - sliderpointwidth ) * ( year - minyear ) / ( maxyear - minyear );
+    sliderpoint.transition()
+        .duration(1000)
+        .attr("x", Math.floor(tpos) );
 }
 
 //
@@ -394,56 +395,56 @@ function getCircleSize( pop ){
 //
 // update the circle display and shift the map into the right position
 function redraw() {
-	if( citytimeline.length > 0 ) {
-		var k = width / ( ( mxmax - mxmin + 40));
-		if( k > 4 ) { k = 4; }
-		var circle = g.selectAll("circle")
-		   .data(citytimeline);
+    if( citytimeline.length > 0 ) {
+        var k = width / ( ( mxmax - mxmin + 40));
+        if( k > 4 ) { k = 4; }
+        var circle = g.selectAll("circle")
+            .data(citytimeline);
 
-		circle.transition()
-			.duration(1000)
-			.attr("r", function(d) { return getCircleSize( d.size );  })
-			.attr( "class", "oldcity" )
-			.style("stroke-width", 4 / k + "px");
-		
-	   circle.enter().append("circle")
-			.attr( "class", "city" )
-			.attr("cx", function(d) { return d.coordinates[0]; })
-			.attr("cy", function(d) { return d.coordinates[1]; })
-			.attr("r", function(d) { return getCircleSize( d.size );  })
-			.attr( "id", function( d ) { return d.id; })
-			.style("stroke-width", 4 / k + "px")
-			.on( "click", circleClick );
+        circle.transition()
+            .duration(1000)
+            .attr("r", function(d) { return getCircleSize( d.size );  })
+            .attr( "class", "oldcity" )
+            .style("stroke-width", 4 / k + "px");
+        
+       circle.enter().append("circle")
+            .attr( "class", "city" )
+            .attr("cx", function(d) { return d.coordinates[0]; })
+            .attr("cy", function(d) { return d.coordinates[1]; })
+            .attr("r", function(d) { return getCircleSize( d.size );  })
+            .attr( "id", function( d ) { return d.id; })
+            .style("stroke-width", 4 / k + "px")
+            .on( "click", circleClick );
 
-		circle.exit().remove();
+        circle.exit().remove();
 
-		var x = -(mxmax + mxmin)/2;
-		var y = -citytimeline[ citytimeline.length - 1].coordinates[1];
-		if( k > 4 ) { k = 4; }
-		g.transition()
-		  .duration(2000)
-		  .attr("transform", "scale(" + k + ")translate(" + x + "," + y + ")")
-		  .style("stroke-width", 1.5 / k + "px");
+        var x = -(mxmax + mxmin)/2;
+        var y = -citytimeline[ citytimeline.length - 1].coordinates[1];
+        if( k > 4 ) { k = 4; }
+        g.transition()
+            .duration(2000)
+            .attr("transform", "scale(" + k + ")translate(" + x + "," + y + ")")
+            .style("stroke-width", 1.5 / k + "px");
 
-	}
+    }
  }
 
 //
 // show the final frame of the animation
 function zoomOut(){
-	var circle = g.selectAll("circle")
-		   .data(citytimeline);
+    var circle = g.selectAll("circle")
+        .data(citytimeline);
 
-	circle.transition()
-	   		.duration(1000)
-			.attr("r", function(d, i) { return Math.log(d.size);  })
-			.attr( "class", "city" )
-			.style("stroke-width", "1px");
+    circle.transition()
+        .duration(1000)
+        .attr("r", function(d, i) { return Math.log(d.size);  })
+        .attr( "class", "city" )
+        .style("stroke-width", "1px");
 
-	g.transition()
-      .duration(2000)
-      .attr("transform", "scale(1)translate(0,0)")
-      .style("stroke-width", "1.5px");
+    g.transition()
+        .duration(2000)
+        .attr("transform", "scale(1)translate(0,0)")
+        .style("stroke-width", "1.5px");
 
 }
 
@@ -452,22 +453,22 @@ function zoomOut(){
 // until that point in time
 // -- called when the slider is bein dragged
 function dragmove(d) {
-	setPaused( true );
+    setPaused( true );
 
-	var x = Math.floor( d3.mouse(this)[0] );
-	var year = Math.min( Math.max( x, 0 ), sliderwidth) / sliderwidth * ( maxYear - minYear ) + minYear;
-  	sliderpoint
-      .attr("x",  Math.floor( Math.max(0, Math.min(sliderwidth - sliderpointwidth, x))));
-	showCitiesUntil( year );
+    var x = Math.floor( d3.mouse(this)[0] );
+    var year = Math.min( Math.max( x, 0 ), sliderwidth) / sliderwidth * ( maxYear - minYear ) + minYear;
+    sliderpoint
+        .attr("x",  Math.floor( Math.max(0, Math.min(sliderwidth - sliderpointwidth, x))));
+    showCitiesUntil( year );
 }
 
 //
 // the slider was moved, 
 function updatesliderpoint( d ){
-	//var point = d3.mouse(this),
-	//	x = point[0];
-	//updatesliderpos(x + minYear, minYear, maxYear);
-	setPaused( true );
+    //var point = d3.mouse(this),
+    //  x = point[0];
+    //updatesliderpos(x + minYear, minYear, maxYear);
+    setPaused( true );
 }
 
 //
