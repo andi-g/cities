@@ -358,6 +358,9 @@ function next( ){
 		if( citiesbyid[ city.id ] !== undefined ){
 			var pos =  citiesbyid[ city.id ];
 			citytimeline.slice( pos, 1);
+			for( var i = pos; i < citytimeline.length; i++ ){
+				citiesbyid[ citytimeline[ i ].id ] = i;
+			} 	
 		}
 		citytimeline.push( city );
 		citiesbyid[ city.id ] = citytimeline.length - 1;
@@ -382,6 +385,13 @@ function updatesliderpos( year, minyear, maxyear ){
 }
 
 //
+// get city circle size
+function getCircleSize( pop ){
+    return Math.pow( pop / 1000, 0.25 );
+}
+
+
+//
 // update the circle display and shift the map into the right position
 function redraw() {
 	if( citytimeline.length > 0 ) {
@@ -392,7 +402,7 @@ function redraw() {
 
 		circle.transition()
 			.duration(1000)
-			.attr("r", function(d, i) { return Math.log(d.size) / 2.;  })
+			.attr("r", function(d) { return getCircleSize( d.size );  })
 			.attr( "class", "oldcity" )
 			.style("stroke-width", 4 / k + "px");
 		
@@ -400,7 +410,7 @@ function redraw() {
 			.attr( "class", "city" )
 			.attr("cx", function(d) { return d.coordinates[0]; })
 			.attr("cy", function(d) { return d.coordinates[1]; })
-			.attr("r", function(d) { return Math.log(d.size) / 2.;  })
+			.attr("r", function(d) { return getCircleSize( d.size );  })
 			.attr( "id", function( d ) { return d.id; })
 			.style("stroke-width", 4 / k + "px")
 			.on( "click", circleClick );
