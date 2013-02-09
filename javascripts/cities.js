@@ -182,7 +182,7 @@ function ready(error, countries, citysizes)
 	   if( citydict[ d.city ] !== undefined ){
 	   		id = citydict[ d.city ];
 	   } else {
-	   		citydict[ d.city ] = id;	
+	   		citydict[ d.city ] = id;
 	   } 
 	   citiesByYear[year] = { "name" : d.city, "coordinates" : projection([ parseFloat(d.lon), parseFloat(d.lat) ]), "size" : parseInt(d.size), "year" : year, "id" : citydict[ d.city ] };
 	   allyears.push(year);
@@ -302,6 +302,23 @@ setInterval(function() {
  }, 2000);
 
 //
+// put cities on the SVG map
+function addCitiesToMap(){
+	//
+	// this is a weird construction
+	// to make sure the last city is colored red
+	// after dragging around the time slider
+	var len = citytimeline.length;
+	if( len > 1 ){
+		var city = citytimeline[ len - 1 ];
+		citytimeline.splice( len - 1, 1);
+		redraw();
+		citytimeline.push( city );
+	}
+	redraw();
+}
+
+//
 // show all cities that were the biggest before a given year
 function showCitiesUntil( year ){
 	lastYear = Math.floor( year );
@@ -326,7 +343,7 @@ function showCitiesUntil( year ){
 	if( citytimeline.length > 0 ){
 		fillCityInfo( citytimeline[ citytimeline.length - 1 ] );
 	}
-	redraw();
+	addCitiesToMap();
 	if ( year >= maxYear - 3 ){
 		zoomOut();
 	}
@@ -368,35 +385,36 @@ function updatesliderpos( year, minyear, maxyear ){
 // update the circle display and shift the map into the right position
 function redraw() {
 	if( citytimeline.length > 0 ) {
-
-	   var circle = g.selectAll("circle")
+		var k = width / ( ( mxmax - mxmin + 40));
+		if( k > 4 ) { k = 4; }
+		var circle = g.selectAll("circle")
 		   .data(citytimeline);
-	 
+
 		circle.transition()
-	   		.duration(1000)
+			.duration(1000)
 			.attr("r", function(d, i) { return Math.log(d.size) / 2.;  })
 			.attr( "class", "oldcity" )
-			.style("stroke-width", 1 / k + "px");
-
+			.style("stroke-width", 4 / k + "px");
+		
 	   circle.enter().append("circle")
-		  	.attr( "class", "city" )
-		   	.attr("cx", function(d) { return d.coordinates[0]; })
-		   	.attr("cy", function(d) { return d.coordinates[1]; })
+			.attr( "class", "city" )
+			.attr("cx", function(d) { return d.coordinates[0]; })
+			.attr("cy", function(d) { return d.coordinates[1]; })
 			.attr("r", function(d) { return Math.log(d.size) / 2.;  })
 			.attr( "id", function( d ) { return d.id; })
-			.style("stroke-width", 1 / k + "px")
+			.style("stroke-width", 4 / k + "px")
 			.on( "click", circleClick );
 
 		circle.exit().remove();
 
 		var x = -(mxmax + mxmin)/2;
 		var y = -citytimeline[ citytimeline.length - 1].coordinates[1];
-		var k = width / ( ( mxmax - mxmin + 40));
 		if( k > 4 ) { k = 4; }
 		g.transition()
 		  .duration(2000)
 		  .attr("transform", "scale(" + k + ")translate(" + x + "," + y + ")")
 		  .style("stroke-width", 1.5 / k + "px");
+
 	}
  }
 
