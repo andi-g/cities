@@ -387,8 +387,9 @@ function updatesliderpos( year, minyear, maxyear ){
 
 //
 // get city circle size
-function getCircleSize( pop ){
-    return Math.pow( pop / 1000, 0.25 );
+function getCircleSize(pop, k){
+    //return Math.pow( pop / 1000, 0.25 );
+    return Math.log(pop)/Math.log(10) * 2 / k;
 }
 
 
@@ -403,7 +404,7 @@ function redraw() {
 
         circle.transition()
             .duration(1000)
-            .attr("r", function(d) { return getCircleSize( d.size );  })
+            .attr("r", function(d) { return getCircleSize( d.size, k );  })
             .attr( "class", "oldcity" )
             .style("stroke-width", 4 / k + "px");
         
@@ -411,7 +412,7 @@ function redraw() {
             .attr( "class", "city" )
             .attr("cx", function(d) { return d.coordinates[0]; })
             .attr("cy", function(d) { return d.coordinates[1]; })
-            .attr("r", function(d) { return getCircleSize( d.size );  })
+            .attr("r", function(d) { return getCircleSize( d.size, k );  })
             .attr( "id", function( d ) { return d.id; })
             .style("stroke-width", 4 / k + "px")
             .on( "click", circleClick );
